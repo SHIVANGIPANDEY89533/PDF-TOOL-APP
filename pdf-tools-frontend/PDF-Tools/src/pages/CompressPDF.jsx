@@ -1,0 +1,69 @@
+import React, { useRef, useState } from "react";
+import axios from "axios";
+import CustomButton from "../component/Common/CustomButton";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
+const CompressPDF = () => {
+  const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [done, setDone] = useState(false);
+  const fileInputRef = useRef(null);
+
+  const handleFileChange = (e) => { setFile(e.target.files[0]); setDone(false); };
+
+  const handleCompress = async () => {
+    if (!file) return;
+    setLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const res = await axios.post(`${BASE_URL}/compress/pdf`, formData, { responseType: "blob" });
+      const url = window.URL.createObjectURL(new Blob([res.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "compressed.pdf");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setDone(true);
+    } catch { alert("Compression failed. Please try again."); }
+    setLoading(false);
+  };
+
+  return (
+    <div className="min-h-screen bg-[#BBD7FF] flex items-stretch justify-center">
+      <div className="flex flex-col md:flex-row w-full bg-white overflow-hidden">
+        {/* Left */}
+        <div className="w-full md:w-[60%] min-h-48 p-4 md:p-6 flex flex-col items-start justify-start gap-6 bg-[#BBD7FF]">
+          <h2 className="text-xl md:text-2xl font-bold text-black">PDF File</h2>
+          <div
+            className="relative w-36 h-48 md:w-48 md:h-64 bg-[#BBD7FF] border-2 border-dashed border-black rounded flex items-center justify-center text-sm font-semibold text-black shadow-inner cursor-pointer"
+            onClick={() => fileInputRef.current?.click()}
+          >
+            <div className="w-full h-full rounded p-4">
+              <div className="flex items-center w-full h-full bg-gray-300 px-2 text-center text-xs">
+                {file ? file.name : "Here Will be File"}
+              </div>
+              <input type="file" accept="application/pdf" onChange={handleFileChange} style={{ display: "none" }} ref={fileInputRef} />
+            </div>
+          </div>
+          {done && <p className="text-green-600 font-semibold text-sm">✅ Compressed successfully!</p>}
+        </div>
+        <div className="hidden md:block w-[1px] bg-gray-300 self-stretch" />
+        {/* Right */}
+        <div className="w-full md:w-[40%] p-4 md:p-6 flex flex-col items-center gap-4 bg-gray-100">
+          <h1 className="text-2xl md:text-3xl font-bold text-black text-center">🗜️ Compress PDF</h1>
+          <p className="text-gray-500 text-sm text-center max-w-xs">Reduce the size of your PDF file while preserving the best possible quality.</p>
+          <div className="w-full max-w-sm">
+            <h2 className="text-base font-semibold text-black mb-2">Selected File</h2>
+            <div className="w-full h-10 bg-white border border-gray-400 rounded flex items-center px-4 text-sm shadow truncate">
+              {file ? file.name : "No file selected"}
+            </div>
+          </div>
+          <CustomButton label={loading ? "Compressing..." : "Compress PDF"} onClick={handleCompress} disabled={!file || loading} className="shadow-xl rounded-2xl hover:bg-gray-200 w-3xs" />
+        </div>
+      </div>
+    </div>
+  );
+};
+export default CompressPDF;

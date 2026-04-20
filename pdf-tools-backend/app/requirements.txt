@@ -1,0 +1,16 @@
+fastapi
+uvicorn[standard]
+pydantic
+boto3
+psycopg2-binary
+psycopg[binary]
+pikepdf
+python-dotenv
+sqlalchemy
+PyMuPDF
+PyPDF2
+pdf2docx
+python-multipart
+jinja2
+
+# ✅ Word -> PDF conversion (pure Python, no external deps)

@@ -1,0 +1,8 @@
+# Ignore pdf_to_word folder
+pdf_to_word/
+uploads/
+merged_pdfs/
+split_pdfs/
+word_to_pdf/
+locked_pdfs/
+.env

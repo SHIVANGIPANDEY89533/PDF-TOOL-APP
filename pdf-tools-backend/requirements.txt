@@ -1,0 +1,25 @@
+fastapi
+uvicorn[standard]
+pydantic
+boto3
+psycopg2-binary
+psycopg[binary]
+pikepdf
+python-dotenv
+sqlalchemy
+PyMuPDF
+PyPDF2
+pdf2docx
+python-multipart
+jinja2
+docx2pdf
+
+pypandoc
+pypandoc==1.13
+
+# For Word -> PDF conversion
+unoconv
+python-docx
+reportlab
+reportlab==4.2.2
+openpyxl 
