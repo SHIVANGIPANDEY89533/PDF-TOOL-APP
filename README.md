@@ -413,17 +413,22 @@ npm run dev
 
 > The app features a clean, light-blue themed interface with responsive design across all PDF tools.
 
-### Merge PDF
-Upload two or more PDFs side by side with a drag-and-drop style preview. Added files appear in the right panel. Click **Merge** to combine and auto-download the result.
+### 🔀 Merge PDF — Interface
+> Upload two or more PDFs side by side. Added files appear in the right panel list. Click **Merge** to combine and auto-download.
 
-### Split PDF
-Upload a single PDF and define custom page ranges (e.g., `1-3`, `4-6`). Download each range as a separate PDF bundled in a ZIP file.
+![Merge PDF UI](screenshots/merge-ui.png)
 
-### Lock / Unlock PDF
-Protect your PDF with a custom password, or strip encryption from an existing locked PDF using its password.
+---
 
-### Compress, Rotate & Watermark
-Single-click operations — select your file, configure options (rotation angle, watermark text, color), and download the processed result instantly.
+### ⚠️ Merge PDF — Network Error (Fixed)
+> Error shown when backend is not running. Make sure FastAPI server is started on port `8001` before using the app.
+
+![Merge Error](screenshots/merge-error.png)
+
+---
+
+### 🏠 App Logo
+![PDF Tool Logo](screenshots/logo.png)
 
 ---
 
